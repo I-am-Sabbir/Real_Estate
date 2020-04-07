@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\SabbiR\\Documents\\Visual Studio 2019\\Real_Estate\\Real_Estate.csproj": {}
+    "G:\\Projects\\Real_Estate\\Real_Estate.csproj": {}
   },
   "projects": {
-    "C:\\Users\\SabbiR\\Documents\\Visual Studio 2019\\Real_Estate\\Real_Estate.csproj": {
+    "G:\\Projects\\Real_Estate\\Real_Estate.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\SabbiR\\Documents\\Visual Studio 2019\\Real_Estate\\Real_Estate.csproj",
+        "projectUniqueName": "G:\\Projects\\Real_Estate\\Real_Estate.csproj",
         "projectName": "Real_Estate",
-        "projectPath": "C:\\Users\\SabbiR\\Documents\\Visual Studio 2019\\Real_Estate\\Real_Estate.csproj",
+        "projectPath": "G:\\Projects\\Real_Estate\\Real_Estate.csproj",
         "packagesPath": "C:\\Users\\SabbiR\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\SabbiR\\Documents\\Visual Studio 2019\\Real_Estate\\obj\\",
+        "outputPath": "G:\\Projects\\Real_Estate\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\SabbiR\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -66,6 +66,10 @@
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.1.10, )"
             }
           },
           "imports": [
