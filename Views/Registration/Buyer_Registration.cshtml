@@ -1,17 +1,25 @@
 ﻿@model Real_Estate.Models.Buyer
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Buyer_Registration";
 }
 
-<h2>Create</h2>
+<h2>Registration(Step 2 of 2)</h2>
 
 <h4>Buyer</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Buyer_Registration">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            
+            <div class="form-group">
+                
+                <input type="hidden" asp-for="userID" value="@ViewBag.userID" class="form-control" />
+                
+            </div>
+
+
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -33,16 +41,9 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Register" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -15,17 +15,19 @@ namespace Real_Estate.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(u => new { u.ID, u.user_name });
-           
+            modelBuilder.Entity<User>().HasIndex(u => u.user_name).IsUnique();
+            modelBuilder.Entity<User>().HasKey(u => u.ID);
+            modelBuilder.Entity<Buyer>().HasKey(u => u.userID);
+            modelBuilder.Entity<Builder>().HasKey(u => u.UserID);
             modelBuilder.Entity<Buyer>()
                 .HasOne<User>(u => u.User)
                 .WithOne()
-                .HasForeignKey<User>(u => u.ID);
+                .HasForeignKey<Buyer>(u => u.userID);
            
             modelBuilder.Entity<Builder>()
                 .HasOne<User>(u => u.User)
                 .WithOne()
-                .HasForeignKey<User>(u => u.ID);
+                .HasForeignKey<Builder>(u => u.UserID);
            
             modelBuilder.Entity<Apartment>()
                 .HasOne<Builder>(b => b.Builder)

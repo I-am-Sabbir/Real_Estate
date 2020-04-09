@@ -8,8 +8,8 @@ namespace Real_Estate.Models
 {
     public class Buyer
     {
-        [Key]
         public int userID { get; set; }
+        
         public User User { get; set; }
 
         [Required(ErrorMessage ="Name required.")]

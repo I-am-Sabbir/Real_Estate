@@ -47,9 +47,7 @@ namespace Real_Estate.Migrations
 
             modelBuilder.Entity("Real_Estate.Models.Builder", b =>
                 {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("UserID");
 
                     b.Property<string>("Company_Name")
                         .IsRequired();
@@ -70,9 +68,7 @@ namespace Real_Estate.Migrations
 
             modelBuilder.Entity("Real_Estate.Models.Buyer", b =>
                 {
-                    b.Property<int>("userID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("userID");
 
                     b.Property<string>("Address")
                         .IsRequired();
@@ -131,9 +127,9 @@ namespace Real_Estate.Migrations
 
             modelBuilder.Entity("Real_Estate.Models.User", b =>
                 {
-                    b.Property<int>("ID");
-
-                    b.Property<string>("user_name");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Password")
                         .IsRequired();
@@ -141,9 +137,12 @@ namespace Real_Estate.Migrations
                     b.Property<string>("Type")
                         .IsRequired();
 
-                    b.HasKey("ID", "user_name");
+                    b.Property<string>("user_name")
+                        .IsRequired();
 
-                    b.HasIndex("ID")
+                    b.HasKey("ID");
+
+                    b.HasIndex("user_name")
                         .IsUnique();
 
                     b.ToTable("Users");
@@ -154,6 +153,22 @@ namespace Real_Estate.Migrations
                     b.HasOne("Real_Estate.Models.Builder", "Builder")
                         .WithMany("Apartments")
                         .HasForeignKey("BuilderID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Real_Estate.Models.Builder", b =>
+                {
+                    b.HasOne("Real_Estate.Models.User", "User")
+                        .WithOne()
+                        .HasForeignKey("Real_Estate.Models.Builder", "UserID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Real_Estate.Models.Buyer", b =>
+                {
+                    b.HasOne("Real_Estate.Models.User", "User")
+                        .WithOne()
+                        .HasForeignKey("Real_Estate.Models.Buyer", "userID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -177,19 +192,6 @@ namespace Real_Estate.Migrations
                     b.HasOne("Real_Estate.Models.Buyer", "Buyer")
                         .WithMany("Requesteds")
                         .HasForeignKey("BuyeruserID");
-                });
-
-            modelBuilder.Entity("Real_Estate.Models.User", b =>
-                {
-                    b.HasOne("Real_Estate.Models.Builder")
-                        .WithOne("User")
-                        .HasForeignKey("Real_Estate.Models.User", "ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Real_Estate.Models.Buyer")
-                        .WithOne("User")
-                        .HasForeignKey("Real_Estate.Models.User", "ID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

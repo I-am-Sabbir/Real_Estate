@@ -9,6 +9,7 @@ namespace Real_Estate.Models
 {
     public class User
     {
+        [Key]
         public int ID { get; set; }
 
         [Required(ErrorMessage ="User Name required.")]
@@ -22,5 +23,7 @@ namespace Real_Estate.Models
         [Required(ErrorMessage ="User Type required.")]
         [Display(Name ="User Type")]
         public string Type { get; set; }
+       
     }
+
 }

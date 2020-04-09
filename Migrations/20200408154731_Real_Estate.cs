@@ -3,16 +3,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Real_Estate.Migrations
 {
-    public partial class RealEstate : Migration
+    public partial class Real_Estate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    user_name = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false),
+                    Type = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Builders",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserID = table.Column<int>(nullable: false),
                     Company_Name = table.Column<string>(nullable: false),
                     Location = table.Column<string>(nullable: false),
                     Contact = table.Column<string>(nullable: false),
@@ -21,14 +35,19 @@ namespace Real_Estate.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Builders", x => x.UserID);
+                    table.ForeignKey(
+                        name: "FK_Builders_Users_UserID",
+                        column: x => x.UserID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Buyers",
                 columns: table => new
                 {
-                    userID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    userID = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Phone = table.Column<string>(nullable: false),
                     Address = table.Column<string>(nullable: false),
@@ -37,6 +56,12 @@ namespace Real_Estate.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Buyers", x => x.userID);
+                    table.ForeignKey(
+                        name: "FK_Buyers_Users_userID",
+                        column: x => x.userID,
+                        principalTable: "Users",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,32 +84,6 @@ namespace Real_Estate.Migrations
                         column: x => x.BuilderID,
                         principalTable: "Builders",
                         principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false),
-                    user_name = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false),
-                    Type = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => new { x.ID, x.user_name });
-                    table.ForeignKey(
-                        name: "FK_Users_Builders_ID",
-                        column: x => x.ID,
-                        principalTable: "Builders",
-                        principalColumn: "UserID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Users_Buyers_ID",
-                        column: x => x.ID,
-                        principalTable: "Buyers",
-                        principalColumn: "userID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -166,9 +165,9 @@ namespace Real_Estate.Migrations
                 column: "BuyeruserID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_ID",
+                name: "IX_Users_user_name",
                 table: "Users",
-                column: "ID",
+                column: "user_name",
                 unique: true);
         }
 
@@ -181,9 +180,6 @@ namespace Real_Estate.Migrations
                 name: "Requesteds");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Apartments");
 
             migrationBuilder.DropTable(
@@ -191,6 +187,9 @@ namespace Real_Estate.Migrations
 
             migrationBuilder.DropTable(
                 name: "Builders");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

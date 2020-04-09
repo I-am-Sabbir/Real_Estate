@@ -9,8 +9,8 @@ namespace Real_Estate.Models
 {
     public class Builder
     { 
-        [Key]
         public int UserID { get; set; }
+
         public User User { get; set; }
 
         [Required(ErrorMessage ="Company Name required.")]
